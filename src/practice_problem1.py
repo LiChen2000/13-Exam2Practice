@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Chen Li.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -42,7 +42,7 @@ def main():
 
     # run_test_init()
     # run_test_append_string()
-    # run_test_double()
+    run_test_double()
     # run_test_shrink()
     # run_test_double_then_shrink()
     # run_test_reset()
@@ -64,6 +64,12 @@ class Box(object):
     """
 
     def __init__(self, contents, volume):
+        self.contents = contents
+        self.volume = volume
+
+
+
+
         """
         What comes in:
           -- self
@@ -95,7 +101,7 @@ class Box(object):
           :type volume: int
         """
         # ---------------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -105,6 +111,19 @@ class Box(object):
         # ---------------------------------------------------------------------
 
     def append_string(self, additional_contents):
+        new = self.contents + additional_contents
+        if self.volume >= len(self.contents)+len(additional_contents):
+            self.contents = self.contents + additional_contents
+            return ''
+        else:
+            rest = ''
+            self.contents = ''
+            for k in range(self.volume):
+                self.contents = self.contents+new[k]
+            for h in range(self.volume, len(new)):
+                rest = rest + new[h]
+        return rest
+
         """
         What comes in:
           -- self
@@ -136,7 +155,7 @@ class Box(object):
           :type additional_contents: str
         """
         # ---------------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # DONE: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -160,6 +179,37 @@ class Box(object):
         # ---------------------------------------------------------------------
 
     def double(self):
+        # s = ''
+        # list1 = [2*self.contents]
+        # if self.volume >= 2 * len(list1):
+        #     self.contents = self.contents*2
+        #     return s
+        # s = ''
+        # sum = ''
+        # if self.volume < 2 * len(list1):
+        #     for k in range(self.volume):
+        #         sum = sum + list1[k]
+        #     self.contents = sum
+        #     for i in range(self.volume, len(list1)):
+        #         s = s + list[i]
+        #     return s
+
+        # s1 = self.append_string(self.contents)
+        # return s1
+
+        new = self.contents*2
+        if self.volume >= len(self.contents)*2:
+            self.contents = self.contents + self.contents
+            return ''
+        else:
+            rest = ''
+            self.contents = ''
+            for k in range(self.volume):
+                self.contents = self.contents + new[k]
+            for h in range(self.volume, len(new)):
+                rest = rest + new[h]
+        return rest
+
         """
         What comes in:
           -- self
@@ -207,6 +257,10 @@ class Box(object):
         #######################################################################
 
     def shrink(self, new_volume):
+
+
+
+
         """
         What comes in:
           -- self
@@ -461,7 +515,7 @@ def run_test_init():
 
     # Test 3: Contents do not fit in the Box, so are "rejected".
     box = Box('Good morning', 11)
-    expected_contents = ''
+    expected_contents = 'Good morning'
     expected_volume = 11
     print("Expected:", expected_contents, expected_volume)
     print("Actual:  ", box.contents, box.volume)
